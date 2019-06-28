@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id','password',
+        'id','password','api_token'
     ];
 
     /**
@@ -26,5 +26,10 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password'
+    ];
+
+    // user_idをキャスト
+    protected $casts = [
+        'id' => 'string'
     ];
 }
