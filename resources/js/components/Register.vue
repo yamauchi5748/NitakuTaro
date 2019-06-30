@@ -32,14 +32,7 @@ export default {
   },
   methods: {
     onClick() {
-      //this.reqRegister();
-      
-      this.reqRegisterListener({
-        response:{
-          id:this.id
-        }
-      })
-      
+      this.reqRegister();
     },
     reqRegister() {
       let xhr = new XMLHttpRequest();

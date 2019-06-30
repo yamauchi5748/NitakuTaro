@@ -32,12 +32,7 @@ export default {
   },
   methods: {
     onClick() {
-      //this.reqLogin();
-      this.reqLoginListener({
-        response:{
-          id:this.id
-        }
-      })
+      this.reqLogin();
     },
     reqLogin() {
       let xhr = new XMLHttpRequest();
