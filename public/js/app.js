@@ -103,7 +103,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -166,11 +165,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    show: Boolean
+  data: function data() {
+    return {
+      id: "",
+      password: ""
+    };
   },
-  mounted: function mounted() {},
   methods: {
+    onClick: function onClick() {
+      //this.reqLogin();
+      this.reqLoginListener({
+        response: {
+          id: this.id
+        }
+      });
+    },
+    reqLogin: function reqLogin() {
+      var xhr = new XMLHttpRequest();
+      xhr.responseType = "json";
+      xhr.addEventListener("load", this.reqLoginListener);
+      xhr.open("POST", "/api/login/", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.send("id=".concat(this.id, "&password=").concat(this.password));
+    },
+    reqLoginListener: function reqLoginListener(_ref) {
+      var response = _ref.response;
+      if (!response) throw new Error("respone is undefined");
+      this.$root.id = response.id;
+      this.goHome();
+    },
     goHome: function goHome() {
       this.$router.push("/");
     }
@@ -213,7 +236,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      id: "",
+      password: ""
+    };
+  },
   methods: {
+    onClick: function onClick() {
+      //this.reqRegister();
+      this.reqRegisterListener({
+        response: {
+          id: this.id
+        }
+      });
+    },
+    reqRegister: function reqRegister() {
+      var xhr = new XMLHttpRequest();
+      xhr.responseType = "json";
+      xhr.addEventListener("load", this.reqLoginListener);
+      xhr.open("POST", "/api/register/", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.send("id=".concat(this.id, "&password=").concat(this.password));
+    },
+    reqRegisterListener: function reqRegisterListener(_ref) {
+      var response = _ref.response;
+      if (!response) throw new Error("respone is undefined");
+      this.$router.push("/login");
+    },
     goHome: function goHome() {
       this.$router.push("/");
     }
@@ -239,9 +289,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {}
-});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
 
@@ -276,7 +333,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".home[data-v-f2b6376c] {\n  display: flex;\n  width: 100%;\n  justify-content: center;\n  align-items: center;\n}\n.vote-link[data-v-f2b6376c] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 150px;\n  height: 150px;\n  border-radius: 75px;\n  text-decoration: none;\n  font-size: 45px;\n  background-color: black;\n  color: white;\n  user-select: none;\n}", ""]);
+exports.push([module.i, ".home[data-v-f2b6376c] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.vote-link[data-v-f2b6376c] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 150px;\n  height: 150px;\n  border-radius: 75px;\n  text-decoration: none;\n  font-size: 45px;\n  background-color: black;\n  color: white;\n  user-select: none;\n}", ""]);
 
 // exports
 
@@ -295,7 +352,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".login[data-v-6bdc8b8e] {\n  display: flex;\n  width: 100%;\n  justify-content: center;\n  align-items: center;\n}\n.modal-mask[data-v-6bdc8b8e] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: fixed;\n  z-index: 9998;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  transition: opacity 0.3s ease;\n}\n.modal-wrapper[data-v-6bdc8b8e] {\n  display: flex;\n  width: 360px;\n  height: 460px;\n  border-radius: 50px;\n  background-color: white;\n}\n.modal-container[data-v-6bdc8b8e] {\n  display: flex;\n  flex-grow: 1;\n  flex-direction: column;\n  justify-content: space-around;\n  align-items: center;\n  padding: 50px 0;\n}\n.login-id[data-v-6bdc8b8e],\n.login-password[data-v-6bdc8b8e] {\n  display: flex;\n  margin: 0;\n  flex-direction: column;\n}\n.login-submit[data-v-6bdc8b8e] {\n  padding: 5px 10px;\n  appearance: none;\n  border: none;\n  border: solid 1px #707070;\n  border-radius: 8px;\n  background-color: white;\n}\n.register-link[data-v-6bdc8b8e] {\n  display: block;\n  text-decoration: none;\n  color: black;\n}", ""]);
+exports.push([module.i, ".login[data-v-6bdc8b8e] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.modal-mask[data-v-6bdc8b8e] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: fixed;\n  z-index: 9998;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  transition: opacity 0.3s ease;\n}\n.modal-wrapper[data-v-6bdc8b8e] {\n  display: flex;\n  width: 360px;\n  height: 460px;\n  border-radius: 50px;\n  background-color: white;\n}\n.modal-container[data-v-6bdc8b8e] {\n  display: flex;\n  flex-grow: 1;\n  flex-direction: column;\n  justify-content: space-around;\n  align-items: center;\n  padding: 50px 0;\n}\n.login-id[data-v-6bdc8b8e],\n.login-password[data-v-6bdc8b8e] {\n  display: flex;\n  margin: 0;\n  flex-direction: column;\n}\n.login-submit[data-v-6bdc8b8e] {\n  padding: 5px 10px;\n  appearance: none;\n  border: none;\n  border: solid 1px #707070;\n  border-radius: 8px;\n  background-color: white;\n}\n.register-link[data-v-6bdc8b8e] {\n  display: block;\n  text-decoration: none;\n  color: black;\n}", ""]);
 
 // exports
 
@@ -314,7 +371,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".register[data-v-97358ae4] {\n  display: flex;\n  width: 100%;\n  justify-content: center;\n  align-items: center;\n}\n.modal-mask[data-v-97358ae4] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: fixed;\n  z-index: 9998;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  transition: opacity 0.3s ease;\n}\n.modal-wrapper[data-v-97358ae4] {\n  display: flex;\n  width: 360px;\n  height: 460px;\n  border-radius: 50px;\n  background-color: white;\n}\n.modal-container[data-v-97358ae4] {\n  display: flex;\n  flex-grow: 1;\n  flex-direction: column;\n  justify-content: space-around;\n  align-items: center;\n  padding: 50px 0;\n}\n.register-id[data-v-97358ae4],\n.register-password[data-v-97358ae4] {\n  display: flex;\n  margin: 0;\n  flex-direction: column;\n}\n.register-submit[data-v-97358ae4] {\n  padding: 5px 10px;\n  appearance: none;\n  border: none;\n  border: solid 1px #707070;\n  border-radius: 8px;\n  background-color: white;\n}\n.login-link[data-v-97358ae4] {\n  display: block;\n  text-decoration: none;\n  color: black;\n}", ""]);
+exports.push([module.i, ".register[data-v-97358ae4] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.modal-mask[data-v-97358ae4] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: fixed;\n  z-index: 9998;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  transition: opacity 0.3s ease;\n}\n.modal-wrapper[data-v-97358ae4] {\n  display: flex;\n  width: 360px;\n  height: 460px;\n  border-radius: 50px;\n  background-color: white;\n}\n.modal-container[data-v-97358ae4] {\n  display: flex;\n  flex-grow: 1;\n  flex-direction: column;\n  justify-content: space-around;\n  align-items: center;\n  padding: 50px 0;\n}\n.register-id[data-v-97358ae4],\n.register-password[data-v-97358ae4] {\n  display: flex;\n  margin: 0;\n  flex-direction: column;\n}\n.register-submit[data-v-97358ae4] {\n  padding: 5px 10px;\n  appearance: none;\n  border: none;\n  border: solid 1px #707070;\n  border-radius: 8px;\n  background-color: white;\n}\n.login-link[data-v-97358ae4] {\n  display: block;\n  text-decoration: none;\n  color: black;\n}", ""]);
 
 // exports
 
@@ -333,7 +390,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".sidebar[data-v-223abea1] {\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  align-items: center;\n  background: #000000;\n}\n.item[data-v-223abea1] {\n  margin: 10px 0;\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  width: 40px;\n  height: 40px;\n}\n.item-img[data-v-223abea1] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  user-select: none;\n}\n.login-item[data-v-223abea1] {\n  margin-top: auto;\n}", ""]);
+exports.push([module.i, ".sidebar[data-v-223abea1] {\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  align-items: center;\n  background: #000000;\n}\n.item[data-v-223abea1] {\n  margin: 10px 0;\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  width: 40px;\n  height: 40px;\n}\n.item-img[data-v-223abea1] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  user-select: none;\n}\n.login-item[data-v-223abea1] {\n  margin-top: auto;\n}\n.status-item[data-v-223abea1] {\n  margin-top: auto;\n}", ""]);
 
 // exports
 
@@ -1662,22 +1719,59 @@ var render = function() {
                   _c("h1", { staticClass: "modal-title" }, [_vm._v("LOGIN")]),
                   _vm._v(" "),
                   _c("p", { staticClass: "login-id" }, [
-                    _c("span", [_vm._v("USER_ID")]),
+                    _c("span", [_vm._v("ID")]),
                     _vm._v(" "),
-                    _c("input", { attrs: { type: "text", name: "id" } })
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.id,
+                          expression: "id"
+                        }
+                      ],
+                      attrs: { type: "text", name: "id" },
+                      domProps: { value: _vm.id },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.id = $event.target.value
+                        }
+                      }
+                    })
                   ]),
                   _vm._v(" "),
                   _c("p", { staticClass: "login-password" }, [
                     _c("span", [_vm._v("PASSWORD")]),
                     _vm._v(" "),
                     _c("input", {
-                      attrs: { type: "password", name: "password" }
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.password,
+                          expression: "password"
+                        }
+                      ],
+                      attrs: { type: "password", name: "password" },
+                      domProps: { value: _vm.password },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.password = $event.target.value
+                        }
+                      }
                     })
                   ]),
                   _vm._v(" "),
                   _c("input", {
                     staticClass: "login-submit",
-                    attrs: { type: "submit", value: "LOGIN" }
+                    attrs: { type: "submit", value: "LOGIN" },
+                    on: { click: _vm.onClick }
                   }),
                   _vm._v(" "),
                   _c(
@@ -1750,7 +1844,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("p", { staticClass: "register-id" }, [
-                    _c("span", [_vm._v("USER_ID")]),
+                    _c("span", [_vm._v("ID")]),
                     _vm._v(" "),
                     _c("input", { attrs: { type: "text", name: "id" } })
                   ]),
@@ -1765,7 +1859,8 @@ var render = function() {
                   _vm._v(" "),
                   _c("input", {
                     staticClass: "register-submit",
-                    attrs: { type: "submit", value: "REGISTER" }
+                    attrs: { type: "submit", value: "REGISTER" },
+                    on: { click: _vm.onClick }
                   }),
                   _vm._v(" "),
                   _c(
@@ -1818,16 +1913,27 @@ var render = function() {
         _c("img", { staticClass: "item-img", attrs: { src: "/img/post.png" } })
       ]),
       _vm._v(" "),
-      _c(
-        "router-link",
-        { staticClass: "item login-item", attrs: { to: "/login" } },
-        [
-          _c("img", {
-            staticClass: "item-img",
-            attrs: { src: "/img/login.png" }
-          })
-        ]
-      )
+      !_vm.$root.id
+        ? _c(
+            "router-link",
+            { staticClass: "item login-item", attrs: { to: "/login" } },
+            [
+              _c("img", {
+                staticClass: "item-img",
+                attrs: { src: "/img/login.png" }
+              })
+            ]
+          )
+        : _c(
+            "router-link",
+            { staticClass: "item status-item", attrs: { to: "/login" } },
+            [
+              _c("img", {
+                staticClass: "item-img",
+                attrs: { src: "/img/status.png" }
+              })
+            ]
+          )
     ],
     1
   )
@@ -16637,15 +16743,20 @@ module.exports = g;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
-/* harmony import */ var _components_App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/App */ "./resources/js/components/App.vue");
+/* harmony import */ var _components_App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/App */ "./resources/js/components/App.vue");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
 
 
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  router: _router__WEBPACK_IMPORTED_MODULE_1__["default"],
+  data: function data() {
+    return {
+      id: null
+    };
+  },
+  router: _router__WEBPACK_IMPORTED_MODULE_2__["default"],
   components: {
-    App: _components_App__WEBPACK_IMPORTED_MODULE_2__["default"]
+    App: _components_App__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   template: '<app></app>'
 }).$mount('#app');

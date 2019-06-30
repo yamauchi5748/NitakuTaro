@@ -12,7 +12,6 @@
 <style lang='scss' scoped>
 .home{
     display: flex;
-    width: 100%;
     justify-content: center;
     align-items: center;
 }

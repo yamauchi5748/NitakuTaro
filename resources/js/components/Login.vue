@@ -4,16 +4,16 @@
       <div class="modal-mask" @click.self="goHome">
         <div class="modal-wrapper">
           <div class="modal-container">
-            <h1 class='modal-title'>LOGIN</h1>
+            <h1 class="modal-title">LOGIN</h1>
             <p class="login-id">
-              <span>USER_ID</span>
-              <input type="text" name='id'>
+              <span>ID</span>
+              <input v-model="id" type="text" name="id">
             </p>
             <p class="login-password">
               <span>PASSWORD</span>
-              <input type="password" name='password'>
+              <input v-model="password" type="password" name="password">
             </p>
-            <input class='login-submit' type='submit' value='LOGIN'>
+            <input @click="onClick" class="login-submit" type="submit" value="LOGIN">
             <router-link class="register-link" to="/register">register</router-link>
           </div>
         </div>
@@ -24,22 +24,43 @@
 
 <script>
 export default {
-    props:{
-        show:Boolean
-    },
-    mounted:function(){
-    },
-    methods:{
-        goHome:function(){
-            this.$router.push("/");
+  data() {
+    return {
+      id: "",
+      password: ""
+    };
+  },
+  methods: {
+    onClick() {
+      //this.reqLogin();
+      this.reqLoginListener({
+        response:{
+          id:this.id
         }
+      })
+    },
+    reqLogin() {
+      let xhr = new XMLHttpRequest();
+      xhr.responseType = "json";
+      xhr.addEventListener("load", this.reqLoginListener);
+      xhr.open("POST", "/api/login/", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.send(`id=${this.id}&password=${this.password}`);
+    },
+    reqLoginListener({ response }) {
+      if (!response) throw new Error("respone is undefined");
+      this.$root.id = response.id;
+      this.goHome()
+    },
+    goHome: function() {
+      this.$router.push("/");
     }
+  }
 };
 </script>
 <style lang='scss' scoped>
 .login {
   display: flex;
-  width: 100%;
   justify-content: center;
   align-items: center;
 }
@@ -77,17 +98,17 @@ export default {
   margin: 0;
   flex-direction: column;
 }
-.login-submit{
-    padding: 5px 10px;
-    appearance: none;
-    border:none;
-    border: solid 1px #707070;
-    border-radius: 8px;
-    background-color: white;
+.login-submit {
+  padding: 5px 10px;
+  appearance: none;
+  border: none;
+  border: solid 1px #707070;
+  border-radius: 8px;
+  background-color: white;
 }
-.register-link{
-    display: block;
-    text-decoration: none;
-    color:black;
+.register-link {
+  display: block;
+  text-decoration: none;
+  color: black;
 }
 </style>
