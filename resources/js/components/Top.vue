@@ -1,5 +1,5 @@
 <template>
-    <div class='home'>
+    <div class='top'>
         <router-link class="vote-link" to="/poll">Vote</router-link>
     </div>
 </template>
@@ -10,9 +10,8 @@
     }
 </script>
 <style lang='scss' scoped>
-.home{
+.top{
     display: flex;
-    width: 100%;
     justify-content: center;
     align-items: center;
 }

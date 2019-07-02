@@ -4,16 +4,16 @@
       <div class="modal-mask" @click.self="goHome">
         <div class="modal-wrapper">
           <div class="modal-container">
-            <h1 class='modal-title'>REGISTER</h1>
+            <h1 class="modal-title">REGISTER</h1>
             <p class="register-id">
-              <span>USER_ID</span>
-              <input type="text" name='id'>
+              <span>ID</span>
+              <input v-model="id" type="text">
             </p>
             <p class="register-password">
               <span>PASSWORD</span>
-              <input type="password" name='password'>
+              <input v-model="password" type="password">
             </p>
-            <input class='register-submit' type='submit' value='REGISTER'>
+            <input @click="onClick" class="register-submit" type="submit" value="REGISTER">
             <router-link class="login-link" to="/login">login</router-link>
           </div>
         </div>
@@ -24,17 +24,37 @@
 
 <script>
 export default {
-    methods:{
-        goHome:function(){
-            this.$router.push("/");
-        }
+  data() {
+    return {
+      id: "",
+      password: ""
+    };
+  },
+  methods: {
+    onClick() {
+      this.reqRegister();
+    },
+    reqRegister() {
+      let xhr = new XMLHttpRequest();
+      xhr.responseType = "json";
+      xhr.addEventListener("load", this.reqRegisterListener);
+      xhr.open("POST", "http://" + location.host + "/api/register/",true);
+      xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+      xhr.send(`id=${this.id}&password=${this.password}`);
+    },
+    reqRegisterListener(event) {
+      if (event.target.status!==201) throw new Error("respone is undefined");
+      this.$router.push("/login");
+    },
+    goHome: function() {
+      this.$router.push("/");
     }
+  }
 };
 </script>
 <style lang='scss' scoped>
 .register {
   display: flex;
-  width: 100%;
   justify-content: center;
   align-items: center;
 }
@@ -72,17 +92,17 @@ export default {
   margin: 0;
   flex-direction: column;
 }
-.register-submit{
-    padding: 5px 10px;
-    appearance: none;
-    border:none;
-    border: solid 1px #707070;
-    border-radius: 8px;
-    background-color: white;
+.register-submit {
+  padding: 5px 10px;
+  appearance: none;
+  border: none;
+  border: solid 1px #707070;
+  border-radius: 8px;
+  background-color: white;
 }
-.login-link{
-    display: block;
-    text-decoration: none;
-    color:black;
+.login-link {
+  display: block;
+  text-decoration: none;
+  color: black;
 }
 </style>
