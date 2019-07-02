@@ -7,11 +7,11 @@
             <h1 class="modal-title">LOGIN</h1>
             <p class="login-id">
               <span>ID</span>
-              <input v-model="id" type="text" name="id">
+              <input v-model="id" type="text">
             </p>
             <p class="login-password">
               <span>PASSWORD</span>
-              <input v-model="password" type="password" name="password">
+              <input v-model="password" type="password">
             </p>
             <input @click="onClick" class="login-submit" type="submit" value="LOGIN">
             <router-link class="register-link" to="/register">register</router-link>
@@ -38,12 +38,13 @@ export default {
       let xhr = new XMLHttpRequest();
       xhr.responseType = "json";
       xhr.addEventListener("load", this.reqLoginListener);
-      xhr.open("POST", "/api/login/", true);
+      xhr.open("POST","http://"+location.host+ "/api/login/", true);
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.send(`id=${this.id}&password=${this.password}`);
     },
-    reqLoginListener({ response }) {
-      if (!response) throw new Error("respone is undefined");
+    reqLoginListener(event) {
+      if (event.target.status !== 200) throw new Error("respone is undefined");
+      const response = event.target.response
       this.$root.id = response.id;
       this.goHome()
     },

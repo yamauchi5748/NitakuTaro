@@ -7,11 +7,11 @@
             <h1 class="modal-title">REGISTER</h1>
             <p class="register-id">
               <span>ID</span>
-              <input type="text" name="id">
+              <input v-model="id" type="text">
             </p>
             <p class="register-password">
               <span>PASSWORD</span>
-              <input type="password" name="password">
+              <input v-model="password" type="password">
             </p>
             <input @click="onClick" class="register-submit" type="submit" value="REGISTER">
             <router-link class="login-link" to="/login">login</router-link>
@@ -37,20 +37,20 @@ export default {
     reqRegister() {
       let xhr = new XMLHttpRequest();
       xhr.responseType = "json";
-      xhr.addEventListener("load", this.reqLoginListener);
-      xhr.open("POST", "/api/register/", true);
-      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.addEventListener("load", this.reqRegisterListener);
+      xhr.open("POST", "http://" + location.host + "/api/register/",true);
+      xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
       xhr.send(`id=${this.id}&password=${this.password}`);
     },
-    reqRegisterListener({ response }) {
-      if (!response) throw new Error("respone is undefined");
+    reqRegisterListener(event) {
+      if (event.target.status!==201) throw new Error("respone is undefined");
       this.$router.push("/login");
     },
     goHome: function() {
       this.$router.push("/");
     }
   }
-}
+};
 </script>
 <style lang='scss' scoped>
 .register {

@@ -160,13 +160,13 @@ __webpack_require__.r(__webpack_exports__);
       var xhr = new XMLHttpRequest();
       xhr.responseType = "json";
       xhr.addEventListener("load", this.reqLoginListener);
-      xhr.open("POST", "/api/login/", true);
+      xhr.open("POST", "http://" + location.host + "/api/login/", true);
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.send("id=".concat(this.id, "&password=").concat(this.password));
     },
-    reqLoginListener: function reqLoginListener(_ref) {
-      var response = _ref.response;
-      if (!response) throw new Error("respone is undefined");
+    reqLoginListener: function reqLoginListener(event) {
+      if (event.target.status !== 200) throw new Error("respone is undefined");
+      var response = event.target.response;
       this.$root.id = response.id;
       this.goHome();
     },
@@ -225,14 +225,13 @@ __webpack_require__.r(__webpack_exports__);
     reqRegister: function reqRegister() {
       var xhr = new XMLHttpRequest();
       xhr.responseType = "json";
-      xhr.addEventListener("load", this.reqLoginListener);
-      xhr.open("POST", "/api/register/", true);
+      xhr.addEventListener("load", this.reqRegisterListener);
+      xhr.open("POST", "http://" + location.host + "/api/register/", true);
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.send("id=".concat(this.id, "&password=").concat(this.password));
     },
-    reqRegisterListener: function reqRegisterListener(_ref) {
-      var response = _ref.response;
-      if (!response) throw new Error("respone is undefined");
+    reqRegisterListener: function reqRegisterListener(event) {
+      if (event.target.status !== 201) throw new Error("respone is undefined");
       this.$router.push("/login");
     },
     goHome: function goHome() {
@@ -1687,7 +1686,7 @@ var render = function() {
                           expression: "id"
                         }
                       ],
-                      attrs: { type: "text", name: "id" },
+                      attrs: { type: "text" },
                       domProps: { value: _vm.id },
                       on: {
                         input: function($event) {
@@ -1712,7 +1711,7 @@ var render = function() {
                           expression: "password"
                         }
                       ],
-                      attrs: { type: "password", name: "password" },
+                      attrs: { type: "password" },
                       domProps: { value: _vm.password },
                       on: {
                         input: function($event) {
@@ -1803,14 +1802,50 @@ var render = function() {
                   _c("p", { staticClass: "register-id" }, [
                     _c("span", [_vm._v("ID")]),
                     _vm._v(" "),
-                    _c("input", { attrs: { type: "text", name: "id" } })
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.id,
+                          expression: "id"
+                        }
+                      ],
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.id },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.id = $event.target.value
+                        }
+                      }
+                    })
                   ]),
                   _vm._v(" "),
                   _c("p", { staticClass: "register-password" }, [
                     _c("span", [_vm._v("PASSWORD")]),
                     _vm._v(" "),
                     _c("input", {
-                      attrs: { type: "password", name: "password" }
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.password,
+                          expression: "password"
+                        }
+                      ],
+                      attrs: { type: "password" },
+                      domProps: { value: _vm.password },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.password = $event.target.value
+                        }
+                      }
                     })
                   ]),
                   _vm._v(" "),
