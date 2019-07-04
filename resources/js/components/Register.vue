@@ -38,7 +38,7 @@ export default {
       let xhr = new XMLHttpRequest();
       xhr.responseType = "json";
       xhr.addEventListener("load", this.reqRegisterListener);
-      xhr.open("POST", "http://" + location.host + "/api/register/",true);
+      xhr.open("POST", `http://${location.host}/api/register/`,true);
       xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
       xhr.send(`id=${this.id}&password=${this.password}`);
     },

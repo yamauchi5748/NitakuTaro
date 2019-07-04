@@ -38,7 +38,7 @@ export default {
       let xhr = new XMLHttpRequest();
       xhr.responseType = "json";
       xhr.addEventListener("load", this.reqLoginListener);
-      xhr.open("POST","http://"+location.host+ "/api/login/", true);
+      xhr.open("POST",`http://${location.host}/api/login/`, true);
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.send(`id=${this.id}&password=${this.password}`);
     },
